@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISLA Santarém — Assistente Académico</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* ── Demo credentials box ── */
+    .demo-creds {
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
+      border: 1px solid #c7d7fa;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-size: 0.82rem;
+      color: #374151;
+    }
+    .demo-creds-title {
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: #4f6ef7;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .demo-creds-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .demo-creds-row:last-child { margin-bottom: 0; }
+    .demo-label {
+      width: 60px;
+      font-weight: 600;
+      color: #6b7280;
+      flex-shrink: 0;
+    }
+    .demo-val {
+      font-family: 'Courier New', monospace;
+      background: #fff;
+      border: 1px solid #dbe4ff;
+      border-radius: 5px;
+      padding: 2px 7px;
+      color: #1e293b;
+      font-size: 0.81rem;
+      cursor: pointer;
+      transition: background .15s, border-color .15s;
+      position: relative;
+    }
+    .demo-val:hover { background: #e8f0fe; border-color: #4f6ef7; }
+    .demo-fill-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #4f6ef7;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: background .15s;
+      margin-left: auto;
+    }
+    .demo-fill-btn:hover { background: #dbe4ff; }
+
+    /* ── GDPR popup ── */
+    .gdpr-link {
+      color: #4f6ef7;
+      cursor: pointer;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+    .gdpr-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(3px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .gdpr-backdrop.open { display: flex; }
+    .gdpr-modal {
+      background: #fff;
+      border-radius: 16px;
+      max-width: 520px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 60px rgba(0,0,0,.18);
+      animation: gdprIn .25s ease;
+    }
+    @keyframes gdprIn {
+      from { transform: scale(.94) translateY(12px); opacity: 0; }
+      to   { transform: scale(1)   translateY(0);    opacity: 1; }
+    }
+    .gdpr-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      border-radius: 16px 16px 0 0;
+      z-index: 1;
+    }
+    .gdpr-modal-header h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #111;
+      margin: 0;
+    }
+    .gdpr-close {
+      background: #f3f4f6;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6b7280;
+      font-size: 16px;
+      transition: background .15s;
+    }
+    .gdpr-close:hover { background: #e5e7eb; color: #111; }
+    .gdpr-modal-body {
+      padding: 16px 20px 20px;
+      font-size: 0.85rem;
+      color: #374151;
+      line-height: 1.65;
+    }
+    .gdpr-modal-body p { margin: 0 0 10px; }
+    .gdpr-modal-body ul { margin: 6px 0 10px 16px; padding: 0; }
+    .gdpr-modal-body li { margin-bottom: 4px; }
+    .gdpr-modal-body strong { color: #111; }
+    .gdpr-modal-footer {
+      padding: 12px 20px 18px;
+      border-top: 1px solid #e5e7eb;
+    }
+    .gdpr-accept-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #4f6ef7, #7c5bf7);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 11px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .15s;
+    }
+    .gdpr-accept-btn:hover { opacity: .9; }
+
+    /* consent row inside form */
+    .consent-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 0.82rem;
+      color: #374151;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    .consent-row input[type=checkbox] {
+      margin-top: 2px;
+      flex-shrink: 0;
+      width: 15px;
+      height: 15px;
+      accent-color: #4f6ef7;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="login-body">
+
+<!-- ── GDPR popup ── -->
+<div class="gdpr-backdrop" id="gdprBackdrop" onclick="closeGdpr(event)">
+  <div class="gdpr-modal" onclick="event.stopPropagation()">
+    <div class="gdpr-modal-header">
+      <h3>🛡️ Proteção de Dados Pessoais (RGPD)</h3>
+      <button class="gdpr-close" onclick="closeGdpr()" aria-label="Fechar">✕</button>
+    </div>
+    <div class="gdpr-modal-body">
+      <p><strong>Responsável pelo tratamento:</strong> ISLA Santarém — Instituto Superior de Línguas e Administração de Santarém.</p>
+      <p><strong>Finalidade:</strong> Os dados recolhidos durante este teste (nome, email e conversas) são utilizados exclusivamente para fins de avaliação, melhoria e validação da aplicação ISLA Assistente Académico.</p>
+      <p><strong>Base legal:</strong> Consentimento do titular dos dados (Art.º 6.º, n.º 1, al. a) do RGPD).</p>
+      <p><strong>Os teus direitos incluem:</strong></p>
+      <ul>
+        <li>Acesso aos teus dados pessoais</li>
+        <li>Retificação de dados incorretos</li>
+        <li>Eliminação dos dados ("direito ao esquecimento")</li>
+        <li>Portabilidade dos dados</li>
+        <li>Retirada do consentimento a qualquer momento</li>
+      </ul>
+      <p><strong>Conservação:</strong> Os dados serão conservados durante o período de avaliação do projeto e eliminados após a sua conclusão.</p>
+      <p><strong>Confidencialidade:</strong> Os dados tratados de forma confidencial e não serão partilhados com terceiros.</p>
+      <p>Para exercer os teus direitos ou obter esclarecimentos, contacta o responsável pelo projeto académico.</p>
+    </div>
+    <div class="gdpr-modal-footer">
+      <button class="gdpr-accept-btn" onclick="acceptGdpr()">Compreendi e Aceito</button>
+    </div>
+  </div>
+</div>
+
+<div class="login-layout">
+
+  <!-- ── Left panel ── -->
+  <div class="login-panel">
+    <div class="login-panel-inner">
+      <div class="login-panel-logo">
+        <img src="assets/images/islasantarem-inverse.svg" alt="ISLA Santarém" />
+      </div>
+      <h1 class="login-panel-title">Assistente Académico</h1>
+      <p class="login-panel-sub">Acede aos teus conteúdos, regulamentos e informações académicas com ajuda da IA.</p>
+      <div class="login-panel-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="login-panel-features">
+        <div class="login-feature">
+          <div class="login-feature-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </div>
+          <span>Documentos e conteúdos das UCs</span>
+        </div>
+        <div class="login-feature">
+          <div class="login-feature-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <span>Calendário e regulamentos académicos</span>
+        </div>
+        <div class="login-feature">
+          <div class="login-feature-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <span>Respostas com base em fontes reais</span>
+        </div>
+      </div>
+    </div>
+    <div class="login-panel-bg"></div>
+  </div>
+
+  <!-- ── Right / form ── -->
+  <div class="login-form-side">
+    <div class="login-card">
+
+      <div class="login-card-header">
+        <div class="login-card-logo">
+          <img src="assets/images/islasantarem.svg" alt="ISLA Santarém" />
+        </div>
+        <h2>Bem-vindo de volta</h2>
+        <p>Entra com as tuas credenciais institucionais</p>
+      </div>
+
+      <!-- Demo credentials box -->
+      <div class="demo-creds">
+        <div class="demo-creds-title">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
+          Credenciais de demonstração
+        </div>
+        <div class="demo-creds-row">
+          <span class="demo-label">Email</span>
+          <span class="demo-val" onclick="fillEmail()" title="Clica para preencher">admin@islasantarem.pt</span>
+          <button class="demo-fill-btn" onclick="fillEmail()">Usar</button>
+        </div>
+        <div class="demo-creds-row">
+          <span class="demo-label">Password</span>
+          <span class="demo-val" onclick="fillPass()" title="Clica para preencher">admin1234</span>
+          <button class="demo-fill-btn" onclick="fillPass()">Usar</button>
+        </div>
+      </div>
+
+      <form onsubmit="doLogin(event)" class="login-form">
+        <div class="form-group">
+          <label for="email">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+            Email institucional
+          </label>
+          <input type="email" id="email" placeholder="admin@islasantarem.pt" autocomplete="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            Password
+          </label>
+          <div class="input-password-wrap">
+            <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" required />
+            <button type="button" class="toggle-pw" onclick="togglePw()" tabindex="-1" aria-label="Mostrar password">
+              <svg id="eyeIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Consent row with GDPR popup link -->
+        <div class="consent-row">
+          <input type="checkbox" id="consentCheckbox" required />
+          <label for="consentCheckbox">
+            Declaro que li e aceito a
+            <span class="gdpr-link" onclick="openGdpr()">Política de Proteção de Dados (RGPD)</span>
+            e autorizo o tratamento dos meus dados para os fins indicados.
+          </label>
+        </div>
+
+        <div id="loginError" class="login-error" style="display:none;"></div>
+
+        <button type="submit" class="login-btn" id="loginBtn">
+          <span id="loginBtnText">Entrar</span>
+          <svg id="loginBtnArrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+          <svg id="loginBtnSpinner" class="spinner hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+          </svg>
+        </button>
+      </form>
+
+      <div class="login-footer">
+        Problemas a aceder?
+        <a href="https://secure.grupolusofona.pt/ulht/secretaria_virtual/" target="_blank">Contacta a secretaria virtual</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ── GDPR popup ── */
+function openGdpr() {
+  document.getElementById('gdprBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeGdpr(e) {
+  if (e && e.target !== document.getElementById('gdprBackdrop')) return;
+  document.getElementById('gdprBackdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function acceptGdpr() {
+  document.getElementById('consentCheckbox').checked = true;
+  document.getElementById('gdprBackdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── Demo credential fill ── */
+function fillEmail() {
+  document.getElementById('email').value = 'admin@islasantarem.pt';
+}
+function fillPass() {
+  document.getElementById('password').value = 'admin1234';
+}
+
+/* ── Login ── */
+async function doLogin(e) {
+  e.preventDefault();
+  const btn     = document.getElementById('loginBtn');
+  const btnText = document.getElementById('loginBtnText');
+  const arrow   = document.getElementById('loginBtnArrow');
+  const spinner = document.getElementById('loginBtnSpinner');
+  const email   = document.getElementById('email').value.trim();
+  const pass    = document.getElementById('password').value;
+  const err     = document.getElementById('loginError');
+
+  btn.disabled = true;
+  btnText.textContent = 'A entrar...';
+  arrow.classList.add('hidden');
+  spinner.classList.remove('hidden');
+  err.style.display = 'none';
+
+  try {
+    const body = new URLSearchParams({ username: email, password: pass });
+    const res  = await fetch('/api/auth/login', { method: 'POST', body });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.detail || 'Credenciais inválidas');
+    }
+    const data = await res.json();
+    localStorage.setItem('token', data.access_token);
+    localStorage.setItem('user', JSON.stringify({ name: data.name, role: data.role, id: data.user_id }));
+    btn.classList.add('login-btn--success');
+    btnText.textContent = 'A redirecionar...';
+    setTimeout(() => window.location.href = 'chat.html', 400);
+  } catch (ex) {
+    err.textContent = ex.message;
+    err.style.display = 'flex';
+    btn.disabled = false;
+    btnText.textContent = 'Entrar';
+    arrow.classList.remove('hidden');
+    spinner.classList.add('hidden');
+    document.getElementById('password').value = '';
+  }
+}
+
+function togglePw() {
+  const input = document.getElementById('password');
+  const icon  = document.getElementById('eyeIcon');
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+  } else {
+    input.type = 'password';
+    icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+  }
+}
+</script>
+
+</body>
+</html>
