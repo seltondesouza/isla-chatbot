@@ -66,13 +66,17 @@ def init_db(url: str | None = None) -> None:
     global _engine, _SessionLocal
     _engine = _make_engine(url or get_settings().database_url)
     _SessionLocal = sessionmaker(bind=_engine, autoflush=False, expire_on_commit=False)
+    pg = is_postgres(_engine)
     try:
-        Base.metadata.create_all(_engine)
         with _engine.begin() as conn:
-            for ddl in (_PG_SEARCH_DDL if is_postgres(_engine) else _SQLITE_SEARCH_DDL):
+            if pg:
+                # Serverless instances can start at the same moment: only one creates the schema.
+                # The transaction-level lock is released automatically at commit.
+                conn.execute(text("SELECT pg_advisory_xact_lock(724911)"))
+            Base.metadata.create_all(conn)
+            for ddl in (_PG_SEARCH_DDL if pg else _SQLITE_SEARCH_DDL):
                 conn.execute(text(ddl))
     except (IntegrityError, ProgrammingError) as exc:
-        # Two serverless instances starting at once can race on CREATE; the other one won.
         log.warning("init_db race (ignored): %s", exc)
 
 

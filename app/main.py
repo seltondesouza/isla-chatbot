@@ -10,6 +10,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 
 from . import crawler
 from .config import DATA_DIR, get_settings
@@ -36,7 +37,11 @@ def ensure_admin() -> None:
         password = s.admin_password or generate_password()
         db.add(User(name="Administrador", email=s.admin_email.lower(), role="admin",
                     password_hash=hash_password(password), must_change_password=not s.admin_password))
-        db.commit()
+        try:
+            db.commit()
+        except IntegrityError:  # another instance created it at the same moment
+            db.rollback()
+            return
     if not s.admin_password:
         path = DATA_DIR / "admin_password.txt"
         path.write_text(f"{s.admin_email}\n{password}\n")
