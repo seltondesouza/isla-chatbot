@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ISLA Assistente — Entrar</title>
+  <link rel="icon" href="/static/logo.svg">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <div class="login-wrap">
+    <form class="card login" id="login">
+      <img class="logo" src="/static/logo.svg" alt="ISLA Santarém">
+      <h1>Assistente Académico</h1>
+      <p class="sub muted small">Horário, pagamentos, atividades e regulamentos.</p>
+      <label for="email">Email ou número de estudante</label>
+      <input id="email" type="text" autocomplete="username" required autofocus>
+      <label for="password">Palavra-passe</label>
+      <input id="password" type="password" autocomplete="current-password" required>
+      <div class="error" id="error"></div>
+      <button class="btn primary" type="submit">Entrar</button>
+      <p class="muted small">Ainda não tens acesso? A conta é criada pela secretaria.</p>
+    </form>
+  </div>
+  <script type="module" src="/static/login.js"></script>
+</body>
+</html>

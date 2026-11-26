@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ISLA Assistente — Gestão</title>
+  <link rel="icon" href="/static/logo.svg">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <div class="admin">
+    <header>
+      <div class="brand"><img src="/static/logo.svg" alt=""><b>Gestão do Assistente</b></div>
+      <div>
+        <span class="muted small" id="who"></span>
+        <a class="btn link" href="/chat">Abrir chat</a>
+        <button class="btn link" id="change-pw">Palavra-passe</button>
+        <button class="btn link" id="logout">Sair</button>
+      </div>
+    </header>
+
+    <nav class="tabs" id="tabs">
+      <button data-tab="overview" class="active">Visão geral</button>
+      <button data-tab="import">Importar dados</button>
+      <button data-tab="activities">Atividades</button>
+      <button data-tab="documents">Documentos</button>
+      <button data-tab="users">Utilizadores</button>
+    </nav>
+
+    <section data-panel="overview" class="stack">
+      <div class="grid" id="stats"></div>
+      <div class="card">
+        <h3>Site da escola</h3>
+        <p class="muted small" id="crawl-info"></p>
+        <button class="btn primary" id="crawl-now">Atualizar a partir do site agora</button>
+      </div>
+      <div class="card">
+        <h3>Modelo de IA</h3>
+        <p class="small" id="llm-info"></p>
+      </div>
+      <div class="card hidden" id="demo-card">
+        <h3>Dados de demonstração</h3>
+        <p class="muted small">Cria 2 estudantes de teste, 3 UCs, horário, calendário, pagamentos e atividades (exemplos inventados). Pode correr-se mais do que uma vez sem duplicar.</p>
+        <button class="btn" id="demo-load">Carregar dados de demonstração</button>
+        <div class="small" id="demo-result"></div>
+      </div>
+    </section>
+
+    <section data-panel="import" class="hidden stack">
+      <div class="card">
+        <p class="muted small">Ficheiros CSV (Excel → "CSV UTF-8", separador ; ou ,). Importar o mesmo ficheiro outra vez atualiza em vez de duplicar.
+          Ordem recomendada: estudantes → UCs → inscrições → horário → calendário → pagamentos.</p>
+        <div id="imports"></div>
+      </div>
+    </section>
+
+    <section data-panel="activities" class="hidden stack">
+      <div class="card">
+        <h3 id="act-form-title">Nova atividade</h3>
+        <form id="act-form" class="form-grid">
+          <input type="hidden" name="id">
+          <div class="full"><label>Título</label><input type="text" name="title" required></div>
+          <div class="full"><label>Descrição</label><textarea name="summary" rows="3"></textarea></div>
+          <div><label>Início</label><input type="date" name="starts_on"></div>
+          <div><label>Fim</label><input type="date" name="ends_on"></div>
+          <div><label>Prazo de candidatura</label><input type="date" name="apply_deadline"></div>
+          <div><label>Vagas</label><input type="number" name="capacity" min="1"></div>
+          <div class="full"><label>Como se candidatar (instruções)</label><input type="text" name="how_to_apply"></div>
+          <div class="full"><label>Link</label><input type="text" name="url" placeholder="https://"></div>
+          <div><label class="check"><input type="checkbox" name="requires_application"> Candidatura pela app</label></div>
+          <div><label class="check"><input type="checkbox" name="is_published" checked> Publicada</label></div>
+          <div class="full toolbar">
+            <button class="btn primary" type="submit">Guardar</button>
+            <button class="btn" type="button" id="act-reset">Limpar</button>
+            <span class="error" id="act-error"></span>
+          </div>
+        </form>
+      </div>
+      <div class="card table-wrap"><table id="act-table"></table></div>
+      <div class="card hidden" id="apps-card"><h3 id="apps-title"></h3><div class="table-wrap"><table id="apps-table"></table></div></div>
+    </section>
+
+    <section data-panel="documents" class="hidden stack">
+      <div class="card">
+        <h3>Carregar documento</h3>
+        <form id="doc-form" class="form-grid">
+          <div class="full"><label>Ficheiro (PDF, TXT, MD)</label><input type="file" name="file" accept=".pdf,.txt,.md" required></div>
+          <div><label>Título (opcional)</label><input type="text" name="title"></div>
+          <div><label>Código da UC (vazio = geral)</label><input type="text" name="course_code"></div>
+          <div class="full toolbar"><button class="btn primary" type="submit">Carregar</button><span class="error" id="doc-error"></span></div>
+        </form>
+      </div>
+      <div class="card">
+        <div class="toolbar">
+          <input type="text" id="doc-q" placeholder="Procurar título ou link…">
+          <select id="doc-kind"><option value="">Todos</option><option value="page">Páginas</option><option value="news">Notícias</option><option value="event">Eventos</option><option value="pdf">PDFs do site</option><option value="upload">Carregados</option></select>
+        </div>
+        <div class="table-wrap"><table id="doc-table"></table></div>
+      </div>
+    </section>
+
+    <section data-panel="users" class="hidden stack">
+      <div class="card">
+        <div class="toolbar"><input type="text" id="user-q" placeholder="Nome, email ou número…"></div>
+        <div class="table-wrap"><table id="user-table"></table></div>
+      </div>
+      <div class="card hidden" id="staff-card">
+        <h3>Nova conta de funcionário</h3>
+        <form id="staff-form" class="form-grid">
+          <div><label>Nome</label><input type="text" name="name" required></div>
+          <div><label>Email</label><input type="email" name="email" required></div>
+          <div><label>Papel</label><select name="role"><option value="staff">Secretaria</option><option value="admin">Administrador</option></select></div>
+          <div class="full toolbar"><button class="btn primary" type="submit">Criar</button><span class="error" id="staff-error"></span></div>
+        </form>
+      </div>
+    </section>
+  </div>
+  <script type="module" src="/static/admin.js"></script>
+</body>
+</html>

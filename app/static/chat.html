@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Assistente ISLA</title>
+  <link rel="icon" href="/static/logo.svg">
+  <link rel="stylesheet" href="/static/app.css">
+  <link rel="stylesheet" href="/static/chat.css">
+  <script src="/static/theme.js"></script>
+</head>
+<body class="chat-app">
+  <div class="app" id="app">
+    <aside class="rail" id="rail" aria-label="Menu">
+      <div class="rail-top">
+        <button class="icon-btn" id="rail-toggle" aria-label="Recolher menu" title="Recolher menu">
+          <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+
+      <button class="new-chat" id="new-chat" title="Nova conversa">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        <span class="rail-text">Nova conversa</span>
+      </button>
+
+      <div class="rail-section">
+        <div class="rail-label rail-text">Recentes</div>
+        <nav class="conv-list" id="conv-list"></nav>
+      </div>
+
+      <div class="rail-bottom">
+        <a class="rail-item hidden" id="admin-link" href="/admin" title="Gestão">
+          <svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+          <span class="rail-text">Gestão</span>
+        </a>
+        <button class="rail-item" id="theme-toggle" title="Tema claro/escuro">
+          <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <span class="rail-text">Tema</span>
+        </button>
+        <button class="rail-item" id="change-pw" title="Mudar palavra-passe">
+          <svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          <span class="rail-text">Palavra-passe</span>
+        </button>
+        <button class="rail-item" id="logout" title="Sair">
+          <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l-5-5 5-5M5 12h12"/></svg>
+          <span class="rail-text">Sair</span>
+        </button>
+      </div>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+
+    <main class="stage">
+      <header class="topbar">
+        <button class="icon-btn mobile-only" id="menu-mobile" aria-label="Abrir menu">
+          <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div class="product">
+          <span class="product-name">Assistente ISLA</span>
+          <span class="model-chip" id="model-chip">IA</span>
+        </div>
+        <div class="spacer"></div>
+        <img class="top-logo" src="/static/logo.svg" alt="ISLA Santarém">
+        <div class="avatar" id="avatar" aria-hidden="true"></div>
+      </header>
+
+      <section class="thread" id="thread">
+        <div class="thread-inner" id="thread-inner"></div>
+      </section>
+
+      <footer class="dock">
+        <button class="jump hidden" id="jump" aria-label="Ir para o fim">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </button>
+        <form class="composer" id="composer">
+          <textarea id="input" rows="1" placeholder="Pergunta ao Assistente ISLA" maxlength="4000" aria-label="Mensagem"></textarea>
+          <div class="composer-actions">
+            <button type="button" class="icon-btn hidden" id="mic" aria-label="Ditar por voz" title="Ditar por voz">
+              <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1M12 18v4"/></svg>
+            </button>
+            <button type="submit" class="send-btn" id="send" aria-label="Enviar" disabled>
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </form>
+        <p class="disclaimer" id="mode-note">O Assistente ISLA usa os teus dados, o site e os regulamentos da escola. Confirma o que for importante com a secretaria.</p>
+      </footer>
+    </main>
+  </div>
+  <script type="module" src="/static/chat.js"></script>
+</body>
+</html>

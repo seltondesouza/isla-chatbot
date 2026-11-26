@@ -1,0 +1,23 @@
+student_number;period;description;amount;due_date;status;reason;reference
+20260001;2026-09;Taxa de inscrição (demo);150,00;2026-09-15;paid;Emolumento de inscrição anual (valor de demonstração — ver despacho de emolumentos);
+20260001;2026-09;Propina — prestação 1/10 (demo);120,00;2026-09-10;paid;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 001 001 (demo)
+20260001;2026-10;Propina — prestação 2/10 (demo);120,00;2026-10-10;paid;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 001 002 (demo)
+20260001;2026-11;Propina — prestação 3/10 (demo);120,00;2026-11-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 001 003 (demo)
+20260001;2026-12;Propina — prestação 4/10 (demo);120,00;2026-12-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 001 004 (demo)
+20260001;2027-01;Propina — prestação 5/10 (demo);120,00;2027-01-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 001 005 (demo)
+20260001;2027-02;Propina — prestação 6/10 (demo);120,00;2027-02-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 001 006 (demo)
+20260001;2027-03;Propina — prestação 7/10 (demo);120,00;2027-03-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 001 007 (demo)
+20260001;2027-04;Propina — prestação 8/10 (demo);120,00;2027-04-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 001 008 (demo)
+20260001;2027-05;Propina — prestação 9/10 (demo);120,00;2027-05-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 001 009 (demo)
+20260001;2027-06;Propina — prestação 10/10 (demo);120,00;2027-06-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 001 010 (demo)
+20260002;2026-09;Taxa de inscrição (demo);150,00;2026-09-15;paid;Emolumento de inscrição anual (valor de demonstração — ver despacho de emolumentos);
+20260002;2026-09;Propina — prestação 1/10 (demo);120,00;2026-09-10;paid;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 002 001 (demo)
+20260002;2026-10;Propina — prestação 2/10 (demo);120,00;2026-10-10;paid;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 002 002 (demo)
+20260002;2026-11;Propina — prestação 3/10 (demo);120,00;2026-11-10;paid;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 002 003 (demo)
+20260002;2026-12;Propina — prestação 4/10 (demo);120,00;2026-12-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 002 004 (demo)
+20260002;2027-01;Propina — prestação 5/10 (demo);120,00;2027-01-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 002 005 (demo)
+20260002;2027-02;Propina — prestação 6/10 (demo);120,00;2027-02-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 002 006 (demo)
+20260002;2027-03;Propina — prestação 7/10 (demo);120,00;2027-03-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 002 007 (demo)
+20260002;2027-04;Propina — prestação 8/10 (demo);120,00;2027-04-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 002 008 (demo)
+20260002;2027-05;Propina — prestação 9/10 (demo);120,00;2027-05-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 002 009 (demo)
+20260002;2027-06;Propina — prestação 10/10 (demo);120,00;2027-06-10;pending;Propina anual de 1200 € paga em 10 prestações mensais (valores de demonstração — ver despacho de propinas do CTeSP);MB 00000 002 010 (demo)

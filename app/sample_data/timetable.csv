@@ -1,0 +1,9 @@
+course_code;class_group;weekday;start;end;room;teacher;type;valid_from;valid_to
+IIA;IA1;segunda;18:30;20:30;2.04;Docente IIA (demo);T;2026-09-14;2027-01-31
+IIA;IA1;quarta;18:30;20:30;Lab 1;Docente IIA (demo);P;2026-09-14;2027-01-31
+FCSI;;terça;18:30;21:30;2.10;Docente FCSI (demo);TP;2026-09-14;2027-01-31
+PROG;IA1;quinta;18:30;21:30;Lab 2;Docente PROG (demo);P;2026-09-14;2027-01-31
+PROG;;sexta;18:30;20:00;2.04;Docente PROG (demo);T;2026-09-14;2027-01-31
+IIA;IA2;segunda;20:30;22:30;2.04;Docente IIA (demo);T;2026-09-14;2027-01-31
+IIA;IA2;quarta;20:30;22:30;Lab 1;Docente IIA (demo);P;2026-09-14;2027-01-31
+PROG;IA2;quinta;20:30;22:30;Lab 2;Docente PROG (demo);P;2026-09-14;2027-01-31
