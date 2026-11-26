@@ -8,3 +8,6 @@ isla-chatbot/
 .claude/
 .vercel/
 *.db
+*.zip
+TRANSPARENCIA.md
+relatorio/

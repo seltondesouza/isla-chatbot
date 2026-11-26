@@ -329,5 +329,125 @@
   "must_not": [
    "Marcelo"
   ]
+ },
+ {
+  "id": "site-bolsa-nossa-terra",
+  "category": "site",
+  "question": "Que bolsas existem para quem é da região de Santarém?",
+  "must": [
+   [
+    "Nossa Terra",
+    "nossa terra"
+   ],
+   [
+    "30"
+   ]
+  ],
+  "tools": [
+   "search_school_info"
+  ]
+ },
+ {
+  "id": "site-form-reducao",
+  "category": "site",
+  "question": "Onde encontro o formulário para pedir redução de propinas?",
+  "must": [
+   [
+    "IP_pedido_reducao_propinas.pdf"
+   ]
+  ],
+  "tools": [
+   "search_school_info"
+  ]
+ },
+ {
+  "id": "site-m23",
+  "category": "site",
+  "question": "Tenho 25 anos e não tenho o 12.º ano. Posso candidatar-me?",
+  "must": [
+   [
+    "maiores de 23",
+    "Maiores de 23",
+    "M23"
+   ]
+  ],
+  "tools": [
+   "search_school_info"
+  ]
+ },
+ {
+  "id": "site-contactos",
+  "category": "site",
+  "question": "Qual é o telefone e o email da escola e o horário da secretaria?",
+  "must": [
+   [
+    "243 305 880"
+   ],
+   [
+    "info@islasantarem.pt"
+   ]
+  ],
+  "must_not": [
+   "330 820",
+   "secretaria@islasantarem.pt"
+  ]
+ },
+ {
+  "id": "site-ctesp",
+  "category": "site",
+  "question": "Que CTeSP existem na área de dados?",
+  "must": [
+   [
+    "Análise de Dados"
+   ]
+  ],
+  "tools": [
+   "search_school_info"
+  ]
+ },
+ {
+  "id": "site-erasmus",
+  "category": "site",
+  "question": "Como funciona o Erasmus na ISLA?",
+  "must": [
+   [
+    "Erasmus"
+   ]
+  ],
+  "tools": [
+   "search_school_info"
+  ]
+ },
+ {
+  "id": "site-provedor",
+  "category": "site",
+  "question": "A quem posso fazer uma reclamação sobre a escola?",
+  "must": [
+   [
+    "Provedor do Estudante",
+    "provedor"
+   ]
+  ],
+  "tools": [
+   "search_school_info"
+  ]
+ },
+ {
+  "id": "site-fora-do-site",
+  "category": "site",
+  "question": "Qual é a ementa da cantina amanhã?",
+  "must_not": [
+   "sopa",
+   "prato do dia"
+  ],
+  "must": [
+   [
+    "não encontrei",
+    "não tenho",
+    "não consigo",
+    "não encontro",
+    "não há informação"
+   ]
+  ]
  }
 ]

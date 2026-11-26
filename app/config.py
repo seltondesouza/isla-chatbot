@@ -17,7 +17,7 @@ class Settings(BaseSettings):
 
     # Core
     school_name: str = "ISLA Santarém"
-    school_contact: str = "Secretaria: secretaria@islasantarem.pt · +351 243 330 820"
+    school_contact: str = "Secretaria Académica: info@islasantarem.pt · +351 243 305 880 (seg–sex 9h–14h e 16h–21h, sáb 9h–16h)"
     timezone: str = "Europe/Lisbon"
     database_url: str = f"sqlite:///{DATA_DIR / 'isla.db'}"
     secret_key: str = ""  # empty = generated once and stored in the database
